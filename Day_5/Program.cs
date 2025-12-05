@@ -22,20 +22,8 @@ class Program
         //int val = findValidValues(limits);
         //Console.WriteLine($"value: {val}");
 
-        for (int i = 0; i < limits.Length; i++)
-        {
-            Console.WriteLine($"L:{limits[i].Item1} H:{limits[i].Item2}");
-        }
-
         SortRanges(limits);
-        Console.WriteLine("After Sorting:");
         fixRanges(limits);
-        Console.WriteLine("");
-
-        for (int i = 0; i < limits.Length; i++)
-        {
-            Console.WriteLine($"L:{limits[i].Item1} H:{limits[i].Item2}");
-        }
 
 
         long value = sumRanges(limits);
