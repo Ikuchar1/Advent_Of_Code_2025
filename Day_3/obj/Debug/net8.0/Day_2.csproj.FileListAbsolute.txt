@@ -1,0 +1,14 @@
+/Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_2/bin/Debug/net8.0/Day_2
+/Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_2/bin/Debug/net8.0/Day_2.deps.json
+/Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_2/bin/Debug/net8.0/Day_2.runtimeconfig.json
+/Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_2/bin/Debug/net8.0/Day_2.dll
+/Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_2/bin/Debug/net8.0/Day_2.pdb
+/Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_2/obj/Debug/net8.0/Day_2.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_2/obj/Debug/net8.0/Day_2.AssemblyInfoInputs.cache
+/Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_2/obj/Debug/net8.0/Day_2.AssemblyInfo.cs
+/Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_2/obj/Debug/net8.0/Day_2.csproj.CoreCompileInputs.cache
+/Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_2/obj/Debug/net8.0/Day_2.dll
+/Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_2/obj/Debug/net8.0/refint/Day_2.dll
+/Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_2/obj/Debug/net8.0/Day_2.pdb
+/Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_2/obj/Debug/net8.0/Day_2.genruntimeconfig.cache
+/Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_2/obj/Debug/net8.0/ref/Day_2.dll
