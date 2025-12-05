@@ -1,12 +1,14 @@
-🎄 Advent of Code Solutions 2025 Edition
+🎄 Advent of Code Solutions (Year XXXX)
 This repository contains my solutions for a 12-day coding challenge. Each folder (Day_1, Day_2, etc.) holds the code for a specific day's problem.
 
 🚀 How to Run
 To execute the solution for any given day, navigate to the main directory (ADVENT_OF_CODE_...) and simply run the following command in your terminal:
 
-Bash
-
+```bash
+cd Day_1  # or whichever day you want
 dotnet run
+```
+
 This will run the project's Program.cs file, which is currently configured to read the actual.txt input for the first day.
 
 📁 Input Files
