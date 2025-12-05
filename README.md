@@ -1,4 +1,4 @@
-🎄 Advent of Code Solutions (Year XXXX)
+🎄 Advent of Code Solutions 2025 Edition
 This repository contains my solutions for a 12-day coding challenge. Each folder (Day_1, Day_2, etc.) holds the code for a specific day's problem.
 
 🚀 How to Run
