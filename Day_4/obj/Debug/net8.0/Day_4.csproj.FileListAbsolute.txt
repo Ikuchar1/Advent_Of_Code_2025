@@ -12,3 +12,4 @@
 /Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_4/obj/Debug/net8.0/Day_4.pdb
 /Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_4/obj/Debug/net8.0/Day_4.genruntimeconfig.cache
 /Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_4/obj/Debug/net8.0/ref/Day_4.dll
+/Users/ikuchar/Desktop/Advent_Of_Code_2025/Day_4/obj/Debug/net8.0/Day_4.sourcelink.json

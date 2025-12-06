@@ -11,9 +11,67 @@ class Program
         string[] input = File.ReadAllLines(inputFilePath);
       
         //Console.WriteLine($"Input: {input.Length}");
-        int sum = loopInputs(input);
+        //int sum = loopInputs(input);
+        
+        int length = 12;
+        string val = "811111111111119";
+        double sum = getLargestVoltageCustomLength(val, length);
+
+        double total = loopCustomInputs(input, length);
+        Console.WriteLine($"Total: {total}");
+
         Console.WriteLine($"Sum: {sum}");
+
+        
+
     }
+
+    static double loopCustomInputs(string[] inputs, int length)
+    {
+        double sum = 0;
+
+        foreach (string input in inputs)
+        {
+            double largestVoltage = getLargestVoltageCustomLength(input, length);
+            sum += largestVoltage;
+        }
+
+        return sum;
+    }
+
+    static double getLargestVoltageCustomLength(string input, int length)
+    {
+        int original_length = length;
+
+        double total = 0;
+        int max = 0;
+        int index = 0;
+
+        for(int count = 0; count < original_length; count++)
+        {
+            for (int i = index; i < input.Length - (original_length - 1) + count; i++)
+            {
+                int value = Int32.Parse(input[i].ToString());
+                if (value > max)
+                {
+                    max = value;
+                    //change index
+                    //forces next loop to start where we ended
+                    index = i+1;
+                }
+
+                
+            }
+            //Console.WriteLine($"Max for position {count}: {max}");
+            //reset values and add to total
+            total += max * Math.Pow(10, length - 1 - count);
+            max = 0;
+        }
+
+        return total;
+    }
+
+
 
     static int getLargestVoltage(string input)
     {   
@@ -58,5 +116,7 @@ class Program
 
         return sum;
     }
+
+    
 
 }
