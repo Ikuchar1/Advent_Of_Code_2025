@@ -10,22 +10,79 @@ class Program
         string testFilePath = "input/test.txt";
         string inputFilePath = "input/actual.txt";
 
-        char[][] grid = File.ReadAllLines(testFilePath)
+        char[][] grid = File.ReadAllLines(inputFilePath)
                             .Select(line => line.ToCharArray())
                             .ToArray();
 
         
-        for (int i = 0; i < grid.Length; i++)
+        
+
+        //int numSplits = getNumSplits(grid);
+        //Console.WriteLine($"Number of splits: {numSplits}");
+        long timelineCount = getTimelineCount(grid);
+        Console.WriteLine($"Timeline Count: {timelineCount}");
+
+    }
+
+    static long getTimelineCount(char[][] grid)
+    {
+        int rows = grid.Length;
+        int cols = grid[0].Length;
+
+        long[][] counts = new long[rows + 1][];
+        for (int i = 0; i <= rows; i++)
         {
-            for (int j = 0; j < grid[i].Length; j++)
-            {
-                Console.Write(grid[i][j]);
-            }
-            Console.WriteLine();
+            counts[i] = new long[cols];
         }
 
-        int numSplits = getNumSplits(grid);
-        Console.WriteLine($"Number of splits: {numSplits}");
+        //get s from first row
+        for (int j = 0; j < cols; j++)
+        {
+            if (grid[0][j] == 'S')
+            {
+                counts[0][j] = 1;
+            }
+        }
+
+        //start counting thru rest of rows
+        long totalSplits = 0;
+
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < cols; c++)
+            {
+                long tileVolume = counts[r][c];
+                char tileChar = grid[r][c];
+
+                //if there is no volume, skip
+                if (tileVolume == 0)
+                {
+                    continue;
+                }
+
+                if (tileChar == '^')
+                {
+                    totalSplits += tileVolume;
+
+                    //split volume to left and right
+                    if (c - 1 >= 0)
+                    {
+                        counts[r + 1][c - 1] += tileVolume;
+                    }
+                    if (c + 1 < cols)
+                    {
+                        counts[r + 1][c + 1] += tileVolume;
+                    }
+                }
+                else
+                {
+                    //push volume down
+                    counts[r + 1][c] += tileVolume;
+                }
+            }
+        }
+
+        return totalSplits + 1;
 
     }
 
