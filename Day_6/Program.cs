@@ -15,10 +15,7 @@ class Program
                             .ToArray();
 
         
-        formatGraph(grid, out long[][] numberGraph, out char[] operators);
-
-        long total = loopColumns(numberGraph, operators);
-        Console.WriteLine($"Total sum of all columns: {total}");
+        
 
     }
 
