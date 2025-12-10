@@ -10,7 +10,7 @@ class Program
         string testFilePath = "input/test.txt";
         string inputFilePath = "input/actual.txt";
 
-        string[] input = File.ReadAllLines(testFilePath);
+        string[] input = File.ReadAllLines(inputFilePath);
         formatCoordinates(input, out (int, int, int)[] coordList);         
 
         //At the start each coord is in its own circuit
@@ -32,10 +32,10 @@ class Program
         connectClosestCoordinates(coordList, circuits);
 
         //printCircuits(circuits);
-        printCircuits(circuits);
+        //printCircuits(circuits);
 
-        long product = find_3_largest(circuits);
-        Console.WriteLine($"Product of 3 largest circuits: {product}");
+        //long product = find_3_largest(circuits);
+        //Console.WriteLine($"Product of 3 largest circuits: {product}");
     }
 
     //function that will find the 3 largest circuits and print their sizes
@@ -86,7 +86,7 @@ class Program
     static void connectClosestCoordinates((int, int, int)[] coordList, Dictionary<(int, int, int), int> circuits)
     {
         HashSet<string> pairs = new HashSet<string>();
-        int limit = 10;
+        int limit = 7500;
 
         for (int i = 0; i < limit; i++)
         {
@@ -103,6 +103,17 @@ class Program
             {
                 Console.WriteLine($"Step {1+i}: Merging Circuits");
                 mergeCircuits(c1, c2, circuits);
+
+                //go until all coords are in same circuit
+                if (allCoordsInSameCircuit(circuits))
+                {
+                    Console.WriteLine("All coordinates are now in the same circuit.");
+                    //print the last 2 merged coords
+                    Console.WriteLine($"Last merged coordinates: ({c1.Item1}, {c1.Item2}, {c1.Item3}) and ({c2.Item1}, {c2.Item2}, {c2.Item3})");
+                    long product = (long)c1.Item1 * c2.Item1;
+                    Console.WriteLine($"Product of X coordinates: {product}");
+                    break;
+                }
             }
             else
             {
@@ -110,6 +121,15 @@ class Program
             }
         }
 
+    }
+
+    //see if all coords are in the same circuit
+    static bool allCoordsInSameCircuit(Dictionary<(int, int, int), int> circuits)
+    {
+        if (circuits.Count == 0) return true;
+
+        int firstCircuitId = circuits.Values.First();
+        return circuits.Values.All(id => id == firstCircuitId);
     }
 
      static long getMinDistance((int, int, int)[] coordList, HashSet<string> processedPairs, out (int, int, int) minCoord1, out (int, int, int) minCoord2)
