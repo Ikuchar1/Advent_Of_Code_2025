@@ -10,7 +10,7 @@ class Program
         string testFilePath = "input/test.txt";
         string inputFilePath = "input/actual.txt";
 
-        string[] input = File.ReadAllLines(inputFilePath);
+        string[] input = File.ReadAllLines(testFilePath);
         formatCoordinates(input, out (int, int, int)[] coordList);         
 
         //At the start each coord is in its own circuit
@@ -31,15 +31,11 @@ class Program
 
         connectClosestCoordinates(coordList, circuits);
 
+        //printCircuits(circuits);
         printCircuits(circuits);
 
         long product = find_3_largest(circuits);
         Console.WriteLine($"Product of 3 largest circuits: {product}");
-
-        List<List<(int, int, int)>> groupedCircuits = new List<List<(int, int, int)>>();
-        //group coords by circuit id
-        
-
     }
 
     //function that will find the 3 largest circuits and print their sizes
@@ -89,15 +85,78 @@ class Program
     //function that will loop 10 times, each time finding the closest 2 coords and connecting them
     static void connectClosestCoordinates((int, int, int)[] coordList, Dictionary<(int, int, int), int> circuits)
     {
+        HashSet<string> pairs = new HashSet<string>();
+        int limit = 10;
 
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < limit; i++)
         {
-            //connect the two coords that are closest
-            getMinDistance(coordList, circuits, out (int, int, int) minCoord1, out (int, int, int) minCoord2);
-            Console.WriteLine($"Connecting coords: ({minCoord1.Item1}, {minCoord1.Item2}, {minCoord1.Item3}) and ({minCoord2.Item1}, {minCoord2.Item2}, {minCoord2.Item3})");
-            //merge the two circuits containing minCoord1 and minCoord2
-            mergeCircuits(minCoord1, minCoord2, circuits);
+            getMinDistance(coordList, pairs, out (int, int, int) c1, out (int, int, int) c2);
+
+            string key = GetPairKey(c1, c2);
+            pairs.Add(key);
+
+            int id1 = circuits[c1];
+            int id2 = circuits[c2];
+
+            //if not the same circuit merge them
+            if (id1 != id2)
+            {
+                Console.WriteLine($"Step {1+i}: Merging Circuits");
+                mergeCircuits(c1, c2, circuits);
+            }
+            else
+            {
+                Console.WriteLine($"Step {1+i}: Already in same circuit.");
+            }
         }
+
+    }
+
+     static long getMinDistance((int, int, int)[] coordList, HashSet<string> processedPairs, out (int, int, int) minCoord1, out (int, int, int) minCoord2)
+    {
+        long minDistance = long.MaxValue;
+        minCoord1 = (0, 0, 0);
+        minCoord2 = (0, 0, 0);
+
+        //go thru each coord, calculate distance to each other coord
+        //check to see if they are in the same circuit, if not calculate distance
+        for (int i = 0; i < coordList.Length; i++)
+        {
+            for (int j = i + 1; j < coordList.Length; j++)
+            {
+                string key = GetPairKey(coordList[i], coordList[j]);
+
+                if (!processedPairs.Contains(key))
+                {
+                    long distance = calculateDistanceSquared(coordList[i], coordList[j]);
+
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        minCoord1 = coordList[i];
+                        minCoord2 = coordList[j];
+                    }
+                }
+            }
+        }
+
+        return minDistance;
+    }
+
+    static string GetPairKey((int, int, int) c1, (int, int, int) c2)
+    {
+        // Ensure the key is always the same regardless of order (A,B vs B,A)
+        // We can just sort them by their X value or hash code logic, 
+        // or just pick a consistent order for the string.
+        
+        // Simple way: Compare string representations to decide order
+        string s1 = $"{c1.Item1},{c1.Item2},{c1.Item3}";
+        string s2 = $"{c2.Item1},{c2.Item2},{c2.Item3}";
+
+        if (string.Compare(s1, s2) < 0)
+            return s1 + "|" + s2;
+        else
+            return s2 + "|" + s1;
     }
 
     //function that will merge two circuits containing coord1 and coord2
@@ -116,37 +175,7 @@ class Program
         }
     }
 
-    static long getMinDistance((int, int, int)[] coordList, Dictionary<(int, int, int), int> circuits, out (int, int, int) minCoord1, out (int, int, int) minCoord2)
-    {
-        long minDistance = long.MaxValue;
-        minCoord1 = (0, 0, 0);
-        minCoord2 = (0, 0, 0);
-
-        //go thru each coord, calculate distance to each other coord
-        //check to see if they are in the same circuit, if not calculate distance
-        for (int i = 0; i < coordList.Length; i++)
-        {
-            for (int j = i + 1; j < coordList.Length; j++)
-            {
-                if (i != j)
-                {
-                    long distance = calculateDistanceSquared(coordList[i], coordList[j]);
-
-                    //check if coordList[i] and coordList[j] are in same circuit
-                    bool inSameCircuit = circuits[coordList[i]] == circuits[coordList[j]];
-
-                    if (distance < minDistance && !inSameCircuit)
-                    {
-                        minDistance = distance;
-                        minCoord1 = coordList[i];
-                        minCoord2 = coordList[j];
-                    }
-                }
-            }
-        }
-
-        return minDistance;
-    }
+   
 
     static long calculateDistance ((int, int, int) coord1, (int, int, int) coord2)
     {
